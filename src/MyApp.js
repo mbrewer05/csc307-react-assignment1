@@ -6,7 +6,15 @@ import Form from './Form';
 function MyApp() {
     const [characters, setCharacters] = useState([]);
     
-    function removeOneCharacter (index) {
+    async function removeOneCharacter (index) {
+        const id = characters[index]['id']
+        try{
+            const response = await axios.delete('http://localhost:5000/users/'.concat(id));
+        }
+        catch(error){
+            //We're not handling errors. Just logging into the console.
+            console.log(error);
+        }
         const updated = characters.filter((character, i) => {
             return i !== index
         });
